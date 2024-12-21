@@ -48,5 +48,5 @@ Route::group([
 Route::group([
     'prefix' => 'influencer',
 ], function() {
-    Route::get('products', InfluencerProductController::class);
+    Route::get('products', [InfluencerProductController::class, 'index']);
 });
