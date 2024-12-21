@@ -5,9 +5,12 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+
+use App\Http\Controllers\Influencer\ProductController as InfluencerProductController;
+
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +29,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group([
     'middleware' => 'auth:api',
     'prefix' => 'admin'
-    ], function() {
+], function() {
     Route::get('chart', [DashboardController::class, 'chart']);
     Route::get('user', [UserController::class, 'user']);
     Route::put('user/info', [UserController::class, 'update_info']);
@@ -37,7 +40,13 @@ Route::group([
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
-    Route::apiResource('products', ProductController::class);
+    Route::apiResource('products', AdminProductController::class);
     Route::apiResource('orders', OrderController::class)->only('index', 'show');
     Route::apiResource('permissions', PermissionController::class)->only('index');
+});
+
+Route::group([
+    'prefix' => 'influencer',
+], function() {
+    Route::get('products', InfluencerProductController::class);
 });
