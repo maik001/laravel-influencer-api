@@ -23,12 +23,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property-read mixed $total
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems
  * @property-read int|null $order_items_count
  * @method static \Database\Factories\OrderFactory factory(...$parameters)
  * @property-read mixed $name
+ * @mixin \Eloquent
  */
 class Order extends Model
 {

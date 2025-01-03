@@ -28,13 +28,18 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::group([
     'middleware' => 'auth:api',
+], function () {    
+    Route::get('user', [AuthController::class, 'user']);
+    Route::put('user/info', [AuthController::class, 'update_info']);
+    Route::put('user/password', [AuthController::class, 'update_password']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+
+Route::group([
+    'middleware' => 'auth:api',
     'prefix' => 'admin'
 ], function() {
     Route::get('chart', [DashboardController::class, 'chart']);
-    Route::get('user', [UserController::class, 'user']);
-    Route::put('user/info', [UserController::class, 'update_info']);
-    Route::put('user/password', [UserController::class, 'update_password']);
-    Route::post('logout', [AuthController::class, 'logout']);
     Route::post('upload', [ImageController::class, 'upload']);
     Route::get('export', [OrderController::class, 'export']);
 

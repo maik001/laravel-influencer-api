@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -92,33 +91,5 @@ class UserController
         User::destroy($user_id);
 
         return response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    public function user() {
-        $user = Auth::user();
-        
-        return (new UserResource($user))->additional([
-            'data' => [
-                'permissions' => $user->permissions()
-            ]
-        ]);
-    }
-
-    public function update_info(UpdateInfoRequest $request) {
-        $user = Auth::user();
-
-        $user->update($request->only('first_name', 'last_name', 'email'));
-
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
-    }
-
-    public function update_password(UpdatePasswordRequest $request) {
-        $user = Auth::user();
-
-        $user->update([
-            'password' => Hash::make($request->input('password'))
-        ]);
-
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 }
