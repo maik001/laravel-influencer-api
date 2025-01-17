@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $code
  * @property int $user_id
  * @property string|null $created_at
-
  * @property string|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Link newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Link newQuery()
@@ -21,6 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Link whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Link whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Link whereUserId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
+ * @property-read \App\Models\User $user
  * @mixin \Eloquent
  */
 class Link extends Model

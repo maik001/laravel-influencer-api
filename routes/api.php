@@ -13,6 +13,7 @@ use App\Http\Controllers\Influencer\ProductController as InfluencerProductContro
 use App\Http\Controllers\Influencer\LinkController as InfluencerLinkController;
 
 use App\Http\Controllers\Checkout\LinkController as CheckoutLinkController;
+use App\Http\Controllers\Checkout\OrderController as CheckoutOrderController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -69,4 +70,5 @@ Route::group([
     'namespace' => 'Checkout'
 ], function () {
     Route::get('links/{code}', [CheckoutLinkController::class, 'show']);
+    Route::post('orders', [CheckoutOrderController::class, 'store']);
 });
