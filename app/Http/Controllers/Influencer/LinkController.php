@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Influencer;
 
 use App\Http\Resources\LinkResource;
 use App\Models\Link;
@@ -12,7 +12,7 @@ class LinkController
 {
     public function store(Request $request) {
         $link = Link::create([
-            'user_id' => $request->input->user()->id,
+            'user_id' => $request->user()->id,
             'code' => Str::random(6)
         ]);
 

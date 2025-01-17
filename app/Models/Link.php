@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $code
  * @property int $user_id
  * @property string|null $created_at
+
  * @property string|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Link newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Link newQuery()
@@ -27,6 +27,13 @@ class Link extends Model
 {
     protected $guarded = ['id'];
 
-    public $timestamps = false;
+    public $timestamps = true;
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function products() {
+        return $this->belongsToMany(Product::class, LinkProduct::class);
+    }
 }

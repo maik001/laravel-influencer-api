@@ -10,7 +10,9 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 
 use App\Http\Controllers\Influencer\ProductController as InfluencerProductController;
-use App\Http\Controllers\LinkController;
+use App\Http\Controllers\Influencer\LinkController as InfluencerLinkController;
+
+use App\Http\Controllers\Checkout\LinkController as CheckoutLinkController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,13 @@ Route::group([
     Route::group([
         'middleware' => ['auth:api', 'scope:influencer'],
     ], function() {
-        Route::post('links', [LinkController::class, 'store']);
+        Route::post('links', [InfluencerLinkController::class, 'store']);
     });
+});
+
+Route::group([
+    'prefix' => 'checkout',
+    'namespace' => 'Checkout'
+], function () {
+    Route::get('links/{code}', [CheckoutLinkController::class, 'show']);
 });
