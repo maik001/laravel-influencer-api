@@ -33,6 +33,15 @@ services:
     networks:
       - app
 
+  mailcatcher:
+    restart: on-failure
+    image: dockage/mailcatcher:0.9.0
+    ports:
+    - "1080:1080"
+    - "1025:1025"
+    networks:
+      - app
+
 networks:
   app:
   

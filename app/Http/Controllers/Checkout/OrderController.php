@@ -9,6 +9,7 @@ use App\Models\Product;
 use Cartalyst\Stripe\Stripe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController
 {
@@ -78,7 +79,7 @@ class OrderController
     }
 
     public function confirm(Request $request) {
-        $order = Order::whereTransactionId($request->input('source')->first());
+        $order = Order::whereTransactionId($request->input('source'))->first();
 
         if(!$order) {
             return response([
@@ -86,8 +87,18 @@ class OrderController
             ], 404);
         }
 
-        $order->complet = 1;
+        $order->complete = 1;
         $order->save();
+
+        Mail::send('admin', ['order' => $order], function ($message) {
+            $message->to('admin@admin.com', 'John Doe');
+            $message->subject('A new order has been completed!');
+        });
+
+        Mail::send('influencer', ['order' => $order], function ($message) use ($order) {
+            $message->to($order->influencer_email);
+            $message->subject('A new order has been completed!');
+        });
 
         return response([
             'message' => 'success'
