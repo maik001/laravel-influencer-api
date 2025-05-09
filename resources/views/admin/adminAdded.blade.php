@@ -1,0 +1,1 @@
+You have been added to the App. Your password is 1234, Login and change it.

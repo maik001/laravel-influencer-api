@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\AdminAddedEvent;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -40,14 +41,14 @@ class UserController
         Gate::authorize('edit', 'users');
 
         $user = User::create($request->only('first_name', 'last_name', 'email') +
-        [
-            'password' => Hash::make('password'),
-        ]);
+        ['password' => Hash::make(1234)]);
 
         UserRole::create([
             'user_id' => $user->id,
             'role_id' => $request->input('role_id')
         ]);
+
+        event(new AdminAddedEvent($user));
 
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
